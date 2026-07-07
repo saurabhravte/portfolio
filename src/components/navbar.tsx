@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { FileText, Folder, Mail, User, type LucideIcon } from "lucide-react";
+import { FileText, Folder, Mail, User, X, type LucideIcon } from "lucide-react";
+import { RiMenuFoldLine } from "react-icons/ri";
 
 import { ModeToggle } from "@/components/mode-toggle";
+import { cn } from "@/lib/utils";
 
 type NavItem = {
   to: string;
@@ -17,33 +20,89 @@ const navItems: NavItem[] = [
 ];
 
 export function Navbar() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
-      {/* Desktop / tablet: fixed full-width bar at the top */}
-      <header className="fixed inset-x-0 top-0 z-50 hidden border-b border-border bg-background/80 backdrop-blur-md md:block">
-        <nav className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-6">
+      {/* Desktop: name that hides on scroll + top-right hamburger menu */}
+      <Link
+        to="/"
+        className={cn(
+          "fixed left-6 top-6 z-40 hidden font-name text-2xl font-bold tracking-tight text-foreground transition-all duration-500 ease-out sm:left-10 sm:top-8 sm:text-3xl md:block",
+          scrolled
+            ? "-translate-y-4 opacity-0 pointer-events-none"
+            : "translate-y-0 opacity-100",
+        )}
+      >
+        Saurabh Ravte
+      </Link>
+
+      {/* Desktop: theme toggle + hamburger */}
+      <div className="fixed right-6 top-6 z-50 hidden items-center gap-2 sm:right-10 sm:top-8 md:flex">
+        <ModeToggle />
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          className="flex size-9 items-center justify-center rounded-full border border-border bg-background/80 text-foreground shadow-sm backdrop-blur-md transition-transform duration-300 ease-out hover:scale-110 active:scale-90"
+        >
+          <span className="relative block size-5">
+            <RiMenuFoldLine
+              className={cn(
+                "absolute inset-0 size-5 transition-all duration-300",
+                open ? "scale-0 -rotate-90 opacity-0" : "scale-100 rotate-0 opacity-100",
+              )}
+            />
+            <X
+              className={cn(
+                "absolute inset-0 size-5 transition-all duration-300",
+                open ? "scale-100 rotate-0 opacity-100" : "scale-0 rotate-90 opacity-0",
+              )}
+            />
+          </span>
+        </button>
+      </div>
+
+      {/* Desktop: backdrop */}
+      {open && (
+        <button
+          type="button"
+          aria-hidden
+          tabIndex={-1}
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 z-40 hidden cursor-default bg-transparent md:block"
+        />
+      )}
+
+      {/* Desktop: menu panel under the hamburger */}
+      <nav
+        className={cn(
+          "fixed right-6 top-19 z-50 hidden w-52 origin-top-right rounded-2xl border border-border bg-background/90 p-2 shadow-lg backdrop-blur-md transition-all duration-200 ease-out sm:right-10 sm:top-22 md:block",
+          open
+            ? "scale-100 opacity-100"
+            : "pointer-events-none scale-95 opacity-0",
+        )}
+      >
+        {navItems.map(({ to, label }) => (
           <Link
-            to="/"
-            className="text-lg font-bold tracking-tight text-foreground transition-opacity hover:opacity-70"
+            key={to}
+            to={to}
+            onClick={() => setOpen(false)}
+            className="block rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&.active]:bg-secondary [&.active]:font-medium [&.active]:text-foreground"
           >
-            SR
+            {label}
           </Link>
-
-          <div className="flex items-center gap-6">
-            {navItems.map(({ to, label }) => (
-              <Link
-                key={to}
-                to={to}
-                className="relative text-sm text-muted-foreground transition-colors hover:text-foreground [&.active]:text-foreground [&.active]:after:absolute [&.active]:after:-bottom-1.5 [&.active]:after:left-0 [&.active]:after:h-0.5 [&.active]:after:w-full [&.active]:after:rounded-full [&.active]:after:bg-foreground"
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
-
-          <ModeToggle />
-        </nav>
-      </header>
+        ))}
+      </nav>
 
       {/* Mobile: floating pill at the bottom with icons */}
       <header className="fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 md:hidden">

@@ -2,11 +2,13 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/manrope";
+@import "@fontsource/fuzzy-bubbles";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-name: "Fuzzy Bubbles", ui-sans-serif, system-ui, cursive;
 }
 
 /* Black & white theme (grayscale only) */
