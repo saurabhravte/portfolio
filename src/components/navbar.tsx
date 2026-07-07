@@ -4,6 +4,8 @@ import { FileText, Folder, Mail, User, X, type LucideIcon } from "lucide-react";
 import { RiMenuFoldLine } from "react-icons/ri";
 
 import { ModeToggle } from "@/components/mode-toggle";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { IdCard } from "@/components/id-card";
 import { cn } from "@/lib/utils";
 
 type NavItem = {
@@ -32,18 +34,32 @@ export function Navbar() {
 
   return (
     <>
-      {/* Desktop: name that hides on scroll + top-right hamburger menu */}
-      <Link
-        to="/"
+      {/* Desktop: name box with moving gradient border + hanging swinging ID card */}
+      <div
         className={cn(
-          "fixed left-6 top-6 z-40 hidden font-name text-2xl font-bold tracking-tight text-foreground transition-all duration-500 ease-out sm:left-10 sm:top-8 sm:text-3xl md:block",
+          "fixed left-6 top-6 z-40 hidden transition-all duration-500 ease-out sm:left-10 sm:top-8 md:block",
           scrolled
             ? "-translate-y-4 opacity-0 pointer-events-none"
             : "translate-y-0 opacity-100",
         )}
       >
-        Saurabh Ravte
-      </Link>
+        <HoverBorderGradient
+          as="div"
+          containerClassName="rounded-xl"
+          className="bg-black px-4 py-1.5"
+          duration={1.5}
+        >
+          <Link
+            to="/"
+            className="block font-name text-2xl font-bold tracking-tight text-white sm:text-3xl"
+          >
+            Saurabh Ravte
+          </Link>
+        </HoverBorderGradient>
+
+        {/* ID card hanging from the name box, swinging gently */}
+        <IdCard className="absolute left-1/2 top-full -translate-x-1/2" />
+      </div>
 
       {/* Desktop: theme toggle + hamburger */}
       <div className="fixed right-6 top-6 z-50 hidden items-center gap-2 sm:right-10 sm:top-8 md:flex">
