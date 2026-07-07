@@ -14,9 +14,16 @@ function QrCode({ className }: { className?: string }) {
     const finderTR = r < 3 && c > cells - 4;
     const finderBL = r > cells - 4 && c < 3;
     if (finderTL || finderTR || finderBL) {
-      const inTL = r < 3 && c < 3 ? r === 0 || r === 2 || c === 0 || c === 2 : false;
-      const inTR = r < 3 && c > cells - 4 ? r === 0 || r === 2 || c === cells - 3 || c === cells - 1 : false;
-      const inBL = r > cells - 4 && c < 3 ? r === cells - 3 || r === cells - 1 || c === 0 || c === 2 : false;
+      const inTL =
+        r < 3 && c < 3 ? r === 0 || r === 2 || c === 0 || c === 2 : false;
+      const inTR =
+        r < 3 && c > cells - 4
+          ? r === 0 || r === 2 || c === cells - 3 || c === cells - 1
+          : false;
+      const inBL =
+        r > cells - 4 && c < 3
+          ? r === cells - 3 || r === cells - 1 || c === 0 || c === 2
+          : false;
       return inTL || inTR || inBL;
     }
     return (r * 7 + c * 13 + r * c * 3) % 3 === 0;
@@ -73,8 +80,8 @@ export function IdCard({ className }: { className?: string }) {
           background: "linear-gradient(160deg, #1c1c1c 0%, #0a0a0a 75%)",
         }}
       >
-        {/* Lanyard hole */}
-        <div className="mx-auto mt-2 h-2.5 w-12 rounded-full border border-zinc-600 bg-black" />
+        {/* Lanyard hole (shows the page behind it, so it follows the theme) */}
+        <div className="mx-auto mt-2 h-2.5 w-12 rounded-full border border-zinc-600 bg-background" />
 
         {/* Red chevron accents */}
         <div className="absolute right-0 top-14 flex flex-col items-end gap-1.5">
@@ -97,23 +104,20 @@ export function IdCard({ className }: { className?: string }) {
           </div>
         </div>
 
-        {/* Logo / wordmark */}
-        <div className="mt-3 flex items-center justify-center gap-1 px-3">
-          <span className="text-xl font-extrabold tracking-tight text-white">
-            SAURABH
+        {/* Full name below photo */}
+        <div className="mt-3 px-3 text-center">
+          <span className="text-lg font-extrabold tracking-tight text-white">
+            Saurabh Ravte
           </span>
         </div>
 
-        {/* Red name band */}
+        {/* Red title band */}
         <div className="mt-3" style={{ background: RED }}>
           <div className="px-3 py-2">
-            <p className="text-sm font-bold uppercase leading-tight tracking-wide text-white">
-              Saurabh Ravte
-            </p>
-            <p className="mt-1 text-[10px] font-medium uppercase tracking-wide text-white/90">
+            <p className="text-[11px] font-semibold uppercase leading-tight tracking-wide text-white">
               Full Stack Developer
             </p>
-            <p className="text-[10px] font-medium uppercase tracking-wide text-white/90">
+            <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wide text-white/90">
               Mobile Developer
             </p>
           </div>
@@ -122,7 +126,7 @@ export function IdCard({ className }: { className?: string }) {
         {/* Footer: id + QR */}
         <div className="flex items-end justify-between bg-black px-3 py-2">
           <span className="font-mono text-[8px] leading-tight text-zinc-500">
-            ID · 2026
+            ID · 1621
             <br />
             DEV / SR
           </span>

@@ -61,14 +61,14 @@ export function HoverBorderGradient({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        "relative flex h-min w-fit flex-col flex-nowrap content-center items-center justify-center gap-10 overflow-visible rounded-xl border border-transparent bg-black/80 p-px box-decoration-clone transition duration-500",
+        "relative flex h-min w-fit flex-col flex-nowrap content-center items-center justify-center gap-10 overflow-visible rounded-xl border border-transparent bg-background p-px box-decoration-clone transition duration-500",
         containerClassName,
       )}
       {...props}
     >
       <div
         className={cn(
-          "z-10 w-auto rounded-[inherit] bg-black px-4 py-2 text-white",
+          "z-10 w-auto rounded-[inherit] bg-background px-4 py-2 text-foreground",
           className,
         )}
       >
@@ -85,7 +85,7 @@ export function HoverBorderGradient({
         }}
         transition={{ ease: "linear", duration }}
       />
-      <div className="absolute inset-[2px] z-1 flex-none rounded-[inherit] bg-black" />
+      <div className="absolute inset-[2px] z-1 flex-none rounded-[inherit] bg-background" />
     </Tag>
   );
 }

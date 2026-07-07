@@ -46,12 +46,12 @@ export function Navbar() {
         <HoverBorderGradient
           as="div"
           containerClassName="rounded-xl"
-          className="bg-black px-4 py-1.5"
+          className="bg-background px-4 py-1.5"
           duration={1.5}
         >
           <Link
             to="/"
-            className="block font-name text-2xl font-bold tracking-tight text-white sm:text-3xl"
+            className="block font-name text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
           >
             Saurabh Ravte
           </Link>
