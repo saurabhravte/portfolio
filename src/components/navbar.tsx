@@ -69,7 +69,7 @@ export function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className="flex size-9 items-center justify-center rounded-full border border-border bg-background/80 text-foreground shadow-sm backdrop-blur-md transition-transform duration-300 ease-out hover:scale-110 active:scale-90"
+          className="flex size-9 items-center justify-center rounded-md border border-border bg-background/80 text-foreground shadow-sm backdrop-blur-md transition-transform duration-300 ease-out hover:scale-110 active:scale-90"
         >
           <span className="relative block size-5">
             <RiMenuFoldLine
