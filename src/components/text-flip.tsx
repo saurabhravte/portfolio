@@ -36,7 +36,7 @@ export function TextFlip({
           animate={{ y: "0%", opacity: 1 }}
           exit={{ y: "-110%", opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="block"
+          className="block whitespace-nowrap"
         >
           {items[index]}
         </motion.span>
