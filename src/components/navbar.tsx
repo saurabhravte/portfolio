@@ -1,28 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { FileText, Folder, Mail, User, X, type LucideIcon } from "lucide-react";
-import { RiMenuFoldLine } from "react-icons/ri";
 
-import { ModeToggle } from "@/components/mode-toggle";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { IdCard } from "@/components/id-card";
 import { cn } from "@/lib/utils";
 
-type NavItem = {
-  to: string;
-  label: string;
-  icon: LucideIcon;
-};
-
-const navItems: NavItem[] = [
-  { to: "/about", label: "About", icon: User },
-  { to: "/projects", label: "Projects", icon: Folder },
-  { to: "/blogs", label: "Blogs", icon: FileText },
-  { to: "/contact", label: "Contact", icon: Mail },
-];
-
 export function Navbar() {
-  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -33,113 +16,31 @@ export function Navbar() {
   }, []);
 
   return (
-    <>
-      {/* Desktop: name box with moving gradient border + hanging swinging ID card */}
-      <div
-        className={cn(
-          "fixed left-6 top-6 z-40 hidden transition-all duration-500 ease-out sm:left-10 sm:top-8 md:block",
-          scrolled
-            ? "-translate-y-4 opacity-0 pointer-events-none"
-            : "translate-y-0 opacity-100",
-        )}
-      >
-        <HoverBorderGradient
-          as="div"
-          containerClassName="rounded-xl"
-          className="bg-background px-4 py-1.5"
-          duration={1.5}
-        >
-          <Link
-            to="/"
-            className="block font-name text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
-          >
-            Saurabh Ravte
-          </Link>
-        </HoverBorderGradient>
-
-        {/* ID card hanging from the name box, swinging gently */}
-        <IdCard className="absolute left-1/2 top-full -translate-x-1/2" />
-      </div>
-
-      {/* Desktop: theme toggle + hamburger */}
-      <div className="fixed right-6 top-6 z-50 hidden items-center gap-2 sm:right-10 sm:top-8 md:flex">
-        <ModeToggle />
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          className="flex size-9 items-center justify-center rounded-md border border-border bg-background/80 text-foreground shadow-sm backdrop-blur-md transition-transform duration-300 ease-out hover:scale-110 active:scale-90"
-        >
-          <span className="relative block size-5">
-            <RiMenuFoldLine
-              className={cn(
-                "absolute inset-0 size-5 transition-all duration-300",
-                open ? "scale-0 -rotate-90 opacity-0" : "scale-100 rotate-0 opacity-100",
-              )}
-            />
-            <X
-              className={cn(
-                "absolute inset-0 size-5 transition-all duration-300",
-                open ? "scale-100 rotate-0 opacity-100" : "scale-0 rotate-90 opacity-0",
-              )}
-            />
-          </span>
-        </button>
-      </div>
-
-      {/* Desktop: backdrop */}
-      {open && (
-        <button
-          type="button"
-          aria-hidden
-          tabIndex={-1}
-          onClick={() => setOpen(false)}
-          className="fixed inset-0 z-40 hidden cursor-default bg-transparent md:block"
-        />
+    // Desktop-only: name box with moving gradient border + hanging swinging ID card
+    <div
+      className={cn(
+        "fixed left-6 top-6 z-40 hidden transition-all duration-500 ease-out sm:left-10 sm:top-8 md:block",
+        scrolled
+          ? "-translate-y-4 opacity-0 pointer-events-none"
+          : "translate-y-0 opacity-100",
       )}
-
-      {/* Desktop: menu panel under the hamburger */}
-      <nav
-        className={cn(
-          "fixed right-6 top-19 z-50 hidden w-52 origin-top-right rounded-2xl border border-border bg-background/90 p-2 shadow-lg backdrop-blur-md transition-all duration-200 ease-out sm:right-10 sm:top-22 md:block",
-          open
-            ? "scale-100 opacity-100"
-            : "pointer-events-none scale-95 opacity-0",
-        )}
+    >
+      <HoverBorderGradient
+        as="div"
+        containerClassName="rounded-xl"
+        className="bg-background px-4 py-1.5"
+        duration={1.5}
       >
-        {navItems.map(({ to, label }) => (
-          <Link
-            key={to}
-            to={to}
-            onClick={() => setOpen(false)}
-            className="block rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&.active]:bg-secondary [&.active]:font-medium [&.active]:text-foreground"
-          >
-            {label}
-          </Link>
-        ))}
-      </nav>
+        <Link
+          to="/"
+          className="block font-name text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+        >
+          Saurabh Ravte
+        </Link>
+      </HoverBorderGradient>
 
-      {/* Mobile: floating pill at the bottom with icons */}
-      <header className="fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 md:hidden">
-        <nav className="flex items-center gap-1 rounded-2xl border border-border bg-background/80 px-2 py-2 shadow-lg backdrop-blur-md">
-          {navItems.map(({ to, label, icon: Icon }) => (
-            <Link
-              key={to}
-              to={to}
-              className="group flex items-center gap-1.5 rounded-xl px-3 py-2 text-muted-foreground transition-colors hover:text-foreground [&.active]:bg-secondary [&.active]:text-foreground"
-              aria-label={label}
-            >
-              <Icon className="size-5" />
-              <span className="hidden text-sm font-medium group-[.active]:inline">
-                {label}
-              </span>
-            </Link>
-          ))}
-          <div className="mx-1 h-6 w-px bg-border" />
-          <ModeToggle />
-        </nav>
-      </header>
-    </>
+      {/* ID card hanging from the name box, swinging gently */}
+      <IdCard className="absolute left-1/2 top-full -translate-x-1/2" />
+    </div>
   );
 }
