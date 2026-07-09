@@ -2,20 +2,26 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/manrope";
+@import "@fontsource-variable/fraunces";
 @import "@fontsource/fuzzy-bubbles";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
   --font-name: "Fuzzy Bubbles", ui-sans-serif, system-ui, cursive;
 }
 
-/* Black & white theme (grayscale only) */
+/* Editorial theme: grayscale base + warm orange accent (poster style) */
 :root {
   --radius: 0.75rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  /* Poster orange */
+  --brand: oklch(0.705 0.16 52);
+  --brand-foreground: oklch(0.145 0 0);
+  --grid-line: oklch(0.145 0 0 / 5%);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -38,6 +44,9 @@
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
+  --brand: oklch(0.72 0.165 55);
+  --brand-foreground: oklch(0.145 0 0);
+  --grid-line: oklch(1 0 0 / 6%);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
@@ -81,6 +90,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
 }
 
 @layer base {
@@ -89,9 +100,31 @@
     outline-color: color-mix(in oklch, var(--ring) 50%, transparent);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  /* Faint engineering-grid paper, like the posters' backdrop */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Orange highlighter swatch behind inline words (poster headline style) */
+  .brand-highlight {
+    background-color: var(--brand);
+    color: var(--brand-foreground);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 }

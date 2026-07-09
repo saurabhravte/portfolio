@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
-import { IdCard } from "@/components/id-card";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -16,7 +15,7 @@ export function Navbar() {
   }, []);
 
   return (
-    // Desktop-only: name box with moving gradient border + hanging swinging ID card
+    // Desktop-only: name box with moving gradient border
     <div
       className={cn(
         "fixed left-6 top-6 z-40 hidden transition-all duration-500 ease-out sm:left-10 sm:top-8 md:block",
@@ -38,9 +37,6 @@ export function Navbar() {
           Saurabh Ravte
         </Link>
       </HoverBorderGradient>
-
-      {/* ID card hanging from the name box, swinging gently */}
-      <IdCard className="absolute left-1/2 top-full -translate-x-1/2" />
     </div>
   );
 }

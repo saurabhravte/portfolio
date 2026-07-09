@@ -2,23 +2,20 @@ import { Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-/** A small `+` mark that sits on top of the dashed rules (chanhdai.com style). */
+/** A small `+` mark that sits on top of the dashed rules (editorial style). */
 function PlusMark({ className }: { className?: string }) {
   return (
     <Plus
       aria-hidden
-      className={cn(
-        "absolute size-3.5 text-muted-foreground/70",
-        className,
-      )}
+      className={cn("absolute size-3.5 text-muted-foreground/70", className)}
       strokeWidth={1}
     />
   );
 }
 
 /**
- * Centered content column framed by dashed vertical rails, like chanhdai.com.
- * Rails run the full height of the page so short pages still show the frame.
+ * Centered content column. Side rails removed per request — the layout now
+ * relies on the grid-paper background and dashed section dividers instead.
  */
 export function PageFrame({
   children,
@@ -34,23 +31,13 @@ export function PageFrame({
         className,
       )}
     >
-      {/* Vertical side rails */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 border-l border-dashed border-border"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 border-r border-dashed border-border"
-      />
       {children}
     </div>
   );
 }
 
 /**
- * Horizontal dashed separator with `+` marks at each end, aligned to the
- * PageFrame rails. Use as a direct child of PageFrame content.
+ * Horizontal dashed separator with `+` marks at each end.
  */
 export function Divider({ className }: { className?: string }) {
   return (
@@ -58,6 +45,34 @@ export function Divider({ className }: { className?: string }) {
       <div className="border-t border-dashed border-border" />
       <PlusMark className="left-0 top-0 -translate-x-1/2 -translate-y-1/2" />
       <PlusMark className="right-0 top-0 -translate-y-1/2 translate-x-1/2" />
+    </div>
+  );
+}
+
+/**
+ * Section heading in the poster's editorial style: a small orange index label
+ * above a large serif title.
+ */
+export function SectionHeader({
+  index,
+  label,
+  title,
+  className,
+}: {
+  index?: string;
+  label: string;
+  title: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("mb-6", className)}>
+      <span className="brand-highlight inline-block rounded-[3px] px-1.5 py-0.5 text-[0.7rem] font-semibold uppercase tracking-[0.18em]">
+        {index ? `${index} · ` : ""}
+        {label}
+      </span>
+      <h2 className="mt-3 font-serif text-3xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-4xl">
+        {title}
+      </h2>
     </div>
   );
 }

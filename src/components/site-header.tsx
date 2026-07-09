@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { FileText, Folder, Mail, User, X, type LucideIcon } from "lucide-react";
+import {
+  FileText,
+  Folder,
+  Mail,
+  User,
+  Wrench,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import { RiMenuFoldLine } from "react-icons/ri";
 
 import { ModeToggle } from "@/components/mode-toggle";
@@ -14,10 +22,11 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { to: "/about", label: "About", icon: User },
-  { to: "/projects", label: "Projects", icon: Folder },
-  { to: "/blogs", label: "Blogs", icon: FileText },
-  { to: "/contact", label: "Contact", icon: Mail },
+  { to: "#about", label: "About", icon: User },
+  { to: "#skills", label: "Skills", icon: Wrench },
+  { to: "#projects", label: "Projects", icon: Folder },
+  { to: "#blogs", label: "Blogs", icon: FileText },
+  { to: "#contact", label: "Contact", icon: Mail },
 ];
 
 export function SiteHeader() {
@@ -87,15 +96,15 @@ export function SiteHeader() {
               )}
             >
               {navItems.map(({ to, label, icon: Icon }) => (
-                <Link
+                <a
                   key={to}
-                  to={to}
+                  href={to}
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground [&.active]:bg-secondary [&.active]:font-medium [&.active]:text-foreground"
+                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                 >
                   <Icon className="size-4" />
                   {label}
-                </Link>
+                </a>
               ))}
             </nav>
           </div>
