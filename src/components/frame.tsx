@@ -30,7 +30,7 @@ export function PageFrame({
   return (
     <div
       className={cn(
-        "relative mx-auto min-h-[calc(100dvh-6rem)] w-full max-w-2xl px-6",
+        "relative mx-auto min-h-[calc(100dvh-6rem)] w-full max-w-2xl px-4",
         className,
       )}
     >
@@ -54,7 +54,7 @@ export function PageFrame({
  */
 export function Divider({ className }: { className?: string }) {
   return (
-    <div className={cn("relative -mx-6", className)} aria-hidden>
+    <div className={cn("relative -mx-4", className)} aria-hidden>
       <div className="border-t border-dashed border-border" />
       <PlusMark className="left-0 top-0 -translate-x-1/2 -translate-y-1/2" />
       <PlusMark className="right-0 top-0 -translate-y-1/2 translate-x-1/2" />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { BadgeCheck, Code2, Smartphone, Sparkles } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 import { FaGithub, FaLinkedinIn, FaXTwitter, FaEnvelope } from "react-icons/fa6";
 import type { IconType } from "react-icons";
 
@@ -47,8 +47,8 @@ function Index() {
 
   return (
     <section className="py-10">
-      {/* Profile header */}
-      <div className="flex items-center gap-4">
+      {/* Profile header — only on mobile (desktop already shows the ID card) */}
+      <div className="flex items-center gap-4 md:hidden">
         <img
           src="/profile.png"
           alt="Saurabh Ravte"
@@ -66,8 +66,8 @@ function Index() {
       </div>
 
       {/* Greeting + single-line flip text */}
-      <div className="mt-8">
-        <p className="font-name text-2xl font-bold leading-snug tracking-tight text-foreground sm:text-3xl">
+      <div className="mt-8 md:mt-0">
+        <p className="font-name text-base font-bold leading-snug tracking-tight text-foreground sm:text-lg">
           {welcome}
         </p>
         <TextFlip
@@ -76,29 +76,8 @@ function Index() {
             "Cross-Platform Mobile Apps",
             "API & Database Integration",
           ]}
-          className="mt-3 text-base font-semibold text-foreground sm:text-2xl"
+          className="mt-2 text-xs font-semibold text-foreground sm:text-sm"
         />
-      </div>
-
-      <Divider className="my-8" />
-
-      {/* Overview */}
-      <div>
-        <SectionLabel>Overview</SectionLabel>
-        <ul className="space-y-2.5 text-sm sm:text-base">
-          <li className="flex items-center gap-2.5">
-            <Code2 className="size-4 shrink-0 text-muted-foreground" />
-            Full Stack Developer
-          </li>
-          <li className="flex items-center gap-2.5">
-            <Smartphone className="size-4 shrink-0 text-muted-foreground" />
-            Mobile Developer
-          </li>
-          <li className="flex items-center gap-2.5">
-            <Sparkles className="size-4 shrink-0 text-muted-foreground" />
-            Open to new opportunities
-          </li>
-        </ul>
       </div>
 
       <Divider className="my-8" />
