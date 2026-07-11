@@ -2,8 +2,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Poster-style cutout portrait: sits on grid paper with an offset orange
- * outline. Grayscale by default, full color on hover (a nod to chanhdai's
- * lights-on/off avatar).
+ * outline. Full color, with a subtle zoom on hover.
  */
 export function Portrait({ className }: { className?: string }) {
   return (
@@ -17,7 +16,7 @@ export function Portrait({ className }: { className?: string }) {
         <img
           src="/profile.png"
           alt="Saurabh Ravte"
-          className="size-full object-cover grayscale transition-[filter,transform] duration-500 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
+          className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
       </div>
     </div>

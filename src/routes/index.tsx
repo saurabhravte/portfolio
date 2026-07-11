@@ -6,7 +6,7 @@ import { Divider, SectionHeader } from "@/components/frame";
 import { Portrait } from "@/components/portrait";
 import { Reveal } from "@/components/reveal";
 import { TextFlip } from "@/components/text-flip";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectTimeline } from "@/components/project-timeline";
 import { CopyButton } from "@/components/ui/copy-button";
 import {
   achievements,
@@ -46,7 +46,7 @@ function Index() {
             <p className="font-name text-sm text-muted-foreground">
               {greeting}
             </p>
-            <h1 className="mt-1 flex items-center gap-2 font-serif text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
+            <h1 className="mt-1 flex items-center gap-2 font-name text-4xl font-bold leading-none tracking-tight sm:text-5xl">
               {profile.name}
               <BadgeCheck className="size-6 text-brand" />
             </h1>
@@ -145,13 +145,9 @@ function Index() {
             title="Things I've shipped"
           />
         </Reveal>
-        <div className="space-y-5">
-          {projects.map((project, i) => (
-            <Reveal key={project.name} delay={i * 0.05}>
-              <ProjectCard project={project} />
-            </Reveal>
-          ))}
-        </div>
+        <Reveal delay={0.1}>
+          <ProjectTimeline projects={projects} />
+        </Reveal>
       </section>
 
       <Divider />

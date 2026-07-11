@@ -1,19 +1,19 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 
-import { Navbar } from "@/components/navbar";
 import { SiteHeader } from "@/components/site-header";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { PageFrame } from "@/components/frame";
 
 const RootLayout = () => (
   <div className="bg-grid relative min-h-screen bg-background text-foreground">
-    <Navbar />
-    <main className="pt-6 pb-16 md:pt-8">
+    <SiteHeader />
+    <main className="pb-16 pt-2">
       <PageFrame>
-        <SiteHeader />
         <Outlet />
         <Footer />
       </PageFrame>
     </main>
+    <ScrollToTop />
   </div>
 );
 
