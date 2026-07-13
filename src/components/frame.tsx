@@ -27,7 +27,7 @@ export function PageFrame({
   return (
     <div
       className={cn(
-        "relative mx-auto min-h-[calc(100dvh-6rem)] w-full max-w-2xl px-4",
+        "relative mx-auto min-h-[calc(100dvh-6rem)] w-full max-w-6xl px-4",
         className,
       )}
     >

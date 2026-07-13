@@ -13,14 +13,14 @@
   --font-name: "Fuzzy Bubbles", ui-sans-serif, system-ui, cursive;
 }
 
-/* Editorial theme: grayscale base + warm orange accent (poster style) */
+/* Monochrome studio theme: black & white, no color accent */
 :root {
-  --radius: 0.75rem;
+  --radius: 0.9rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  /* Poster orange */
-  --brand: oklch(0.705 0.16 52);
-  --brand-foreground: oklch(0.145 0 0);
+  /* Accent = pure black in light mode */
+  --brand: oklch(0.145 0 0);
+  --brand-foreground: oklch(0.985 0 0);
   --grid-line: oklch(0.145 0 0 / 5%);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -42,27 +42,28 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(0.13 0.004 160);
   --foreground: oklch(0.985 0 0);
-  --brand: oklch(0.72 0.165 55);
-  --brand-foreground: oklch(0.145 0 0);
-  --grid-line: oklch(1 0 0 / 6%);
-  --card: oklch(0.205 0 0);
+  /* Accent = pure white in dark mode */
+  --brand: oklch(0.985 0 0);
+  --brand-foreground: oklch(0.13 0.004 160);
+  --grid-line: oklch(1 0 0 / 4%);
+  --card: oklch(0.17 0.005 160);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(0.17 0.005 160);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.985 0 0);
   --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.269 0 0);
+  --secondary: oklch(0.22 0.006 160);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --muted: oklch(0.22 0.006 160);
+  --muted-foreground: oklch(0.7 0.01 160);
+  --accent: oklch(0.22 0.006 160);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 18%);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.985 0 0);
 }
 
@@ -112,19 +113,68 @@
 }
 
 @layer utilities {
-  /* Faint engineering-grid paper, like the posters' backdrop */
+  /* Faint engineering-grid paper backdrop */
   .bg-grid {
     background-image:
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
       linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 28px 28px;
+    background-size: 32px 32px;
   }
 
-  /* Orange highlighter swatch behind inline words (poster headline style) */
+  /* Green highlighter swatch behind inline words */
   .brand-highlight {
     background-color: var(--brand);
     color: var(--brand-foreground);
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+  }
+
+  /* Oversized hero name: subtle monochrome gradient text */
+  .name-gradient {
+    background-image: linear-gradient(
+      100deg,
+      var(--muted-foreground) 0%,
+      var(--foreground) 55%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Horizontal auto-scrolling logo strip */
+  .animate-marquee {
+    animation: marquee 32s linear infinite;
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
   }
 }

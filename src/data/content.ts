@@ -1,9 +1,43 @@
-import { FaGithub, FaLinkedinIn, FaXTwitter, FaEnvelope } from "react-icons/fa6";
+import {
+  FaGithub,
+  FaLinkedinIn,
+  FaXTwitter,
+  FaEnvelope,
+} from "react-icons/fa6";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiNodedotjs,
+  SiPostgresql,
+  SiMongodb,
+  SiTailwindcss,
+  SiDocker,
+  SiExpress,
+  SiGithub,
+  SiRedis,
+  SiVercel,
+} from "react-icons/si";
+import { ArrowRight, Handshake, type LucideIcon } from "lucide-react";
+import {
+  BrainCircuit,
+  Database,
+  LayoutDashboard,
+  Radio,
+  Server,
+  Palette,
+} from "lucide-react";
 import type { IconType } from "react-icons";
 
 export const profile = {
   name: "Saurabh Ravte",
-  title: "Full Stack Developer",
+  firstName: "Saurabh",
+  lastName: "Ravte",
+  // Large hero wordmark: small label sits above the oversized display name.
+  displayNameTop: "Saurabh",
+  displayNameBig: "ravte",
+  title: "Full Stack",
+  subtitle: "Web Developer",
   location: "India",
   email: "saurabh.ravte@gmail.com",
   phone: "+91 7987 191 418",
@@ -13,8 +47,94 @@ export const profile = {
     "Real-Time & AI-Powered Products",
     "APIs, Databases & Clean UI",
   ],
+  intro:
+    "Hi, I'm Saurabh — a full-stack developer building fast, scalable web apps with the MERN stack, Next.js and TypeScript, turning ideas into polished, production-ready products.",
   bio: "B.C.A. graduate skilled in the MERN stack, Next.js, and TypeScript with 4+ production-grade projects — including an AI-assisted delivery platform, a real-time polling app, and a SaaS form builder. I care about shipping scalable, user-focused web applications where the small details matter.",
 };
+
+/* ── Top navigation pills (green circle icon + label) ─────────────── */
+export type NavPill = { label: string; href: string; icon: LucideIcon };
+
+export const navPills: NavPill[] = [
+  { label: "See my work", href: "#projects", icon: ArrowRight },
+  { label: "Hire me", href: "#contact", icon: Handshake },
+];
+
+/* ── Tech tools shown under the hero + in the scrolling strip ─────── */
+export type Tool = { label: string; icon: IconType };
+
+export const tools: Tool[] = [
+  { label: "React", icon: SiReact },
+  { label: "Next.js", icon: SiNextdotjs },
+  { label: "TypeScript", icon: SiTypescript },
+  { label: "Node.js", icon: SiNodedotjs },
+  { label: "PostgreSQL", icon: SiPostgresql },
+  { label: "MongoDB", icon: SiMongodb },
+  { label: "Tailwind", icon: SiTailwindcss },
+  { label: "Docker", icon: SiDocker },
+];
+
+export const marqueeTools: Tool[] = [
+  ...tools,
+  { label: "Express", icon: SiExpress },
+  { label: "Redis", icon: SiRedis },
+  { label: "Vercel", icon: SiVercel },
+  { label: "GitHub", icon: SiGithub },
+];
+
+/* ── Statement banner ────────────────────────────────────────────── */
+export const statement = {
+  headline: "Building scalable, performant, delightful web apps and many more…",
+  description:
+    "Development isn't just about code, frameworks and databases — it's about solving real problems, shipping ideas people actually use, and sweating the small details. Crafting reliable, well-architected products end to end is what I do very well.",
+};
+
+/* ── "What I do" service cards ────────────────────────────────────── */
+export type Service = {
+  title: string;
+  blurb: string;
+  icon: LucideIcon;
+  href: string;
+};
+
+export const services: Service[] = [
+  {
+    title: "Full-Stack Web Apps",
+    blurb: "End-to-end products with React, Next.js & Node.",
+    icon: LayoutDashboard,
+    href: "#work",
+  },
+  {
+    title: "Real-Time Systems",
+    blurb: "Live sync & collaboration over WebSockets.",
+    icon: Radio,
+    href: "#work",
+  },
+  {
+    title: "AI-Powered Features",
+    blurb: "LLM workflows, RAG & agentic pipelines.",
+    icon: BrainCircuit,
+    href: "#work",
+  },
+  {
+    title: "APIs & Backends",
+    blurb: "Typed REST/tRPC APIs, auth & billing.",
+    icon: Server,
+    href: "#work",
+  },
+  {
+    title: "Frontend & UI",
+    blurb: "Responsive, accessible, pixel-perfect UIs.",
+    icon: Palette,
+    href: "#work",
+  },
+  {
+    title: "Databases & Infra",
+    blurb: "Schema design, Postgres/Mongo & Docker.",
+    icon: Database,
+    href: "#work",
+  },
+];
 
 export type Social = { label: string; href: string; icon: IconType };
 

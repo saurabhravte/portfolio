@@ -1,250 +1,280 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, BadgeCheck, PenLine, Trophy } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
-import { Divider, SectionHeader } from "@/components/frame";
-import { Portrait } from "@/components/portrait";
+import { Divider } from "@/components/frame";
 import { Reveal } from "@/components/reveal";
 import { TextFlip } from "@/components/text-flip";
-import { ProjectTimeline } from "@/components/project-timeline";
 import { CopyButton } from "@/components/ui/copy-button";
 import {
-  achievements,
-  blogPosts,
+  marqueeTools,
   profile,
   projects,
-  skillGroups,
+  services,
   socials,
+  statement,
 } from "@/data/content";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const greetings = [
-  "Welcome to my corner of the web.",
-  "Hey there — glad you dropped by.",
-  "You found me. Come on in.",
-  "Great to have you here.",
-];
-
 function Index() {
-  const [greeting] = useState(
-    () => greetings[Math.floor(Math.random() * greetings.length)],
-  );
+  // Split the statement so the closing phrase can be highlighted in green.
+  const [headHead, headTail] = statement.headline.split("many more");
 
   return (
-    <div className="pb-20">
+    <div className="pb-24">
       {/* ───────────────────────── Hero ───────────────────────── */}
-      <section className="py-10 sm:py-14">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
-          <Reveal>
-            <Portrait className="w-32 shrink-0 sm:w-40" />
-          </Reveal>
-
-          <Reveal delay={0.1} className="min-w-0">
-            <p className="font-name text-sm text-muted-foreground">
-              {greeting}
-            </p>
-            <h1 className="mt-1 flex items-center gap-2 font-name text-4xl font-bold leading-none tracking-tight sm:text-5xl">
-              {profile.name}
-              <BadgeCheck className="size-6 text-brand" />
-            </h1>
-            <p className="mt-2 text-base font-medium text-foreground">
-              <span className="brand-highlight rounded-[3px] px-1.5 py-0.5">
-                {profile.title}
+      <section className="relative pt-4 sm:pt-6">
+        <div className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-6">
+          {/* Left — title */}
+          <Reveal className="order-2 md:order-1">
+            <div className="mb-4 h-px w-16 bg-brand/70" />
+            <h1 className="font-serif text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+              {profile.title}
+              <br />
+              <span className="text-muted-foreground">
+                &amp; {profile.subtitle}
               </span>
-            </p>
+            </h1>
             <TextFlip
               items={profile.roles}
-              className="mt-3 text-sm font-semibold text-muted-foreground"
+              className="mt-3 text-xs font-semibold text-brand"
             />
           </Reveal>
-        </div>
 
-        <Reveal delay={0.15} className="mt-8 flex flex-wrap gap-2">
-          {socials.map(({ label, href, icon: Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
-              aria-label={label}
-              className="flex size-10 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground shadow-sm transition-all duration-300 ease-out hover:scale-110 hover:border-brand hover:text-brand active:scale-90"
-            >
-              <Icon className="size-4" />
-            </a>
-          ))}
-        </Reveal>
+          {/* Center — portrait with full name below */}
+          <Reveal
+            delay={0.1}
+            className="order-1 mx-auto w-full max-w-68 md:order-2"
+          >
+            <div className="overflow-hidden rounded-[1.75rem] border border-border/60 shadow-2xl">
+              <img
+                src="/profile.png"
+                alt={profile.name}
+                className="aspect-square w-full object-cover"
+              />
+            </div>
+
+            {/* Full name below the picture — one line, uppercase */}
+            <div className="mt-4 flex flex-col items-center leading-none">
+              <span className="name-gradient whitespace-nowrap font-serif text-[clamp(1.5rem,6vw,2.75rem)] font-black uppercase tracking-tight">
+                {profile.name}
+              </span>
+            </div>
+          </Reveal>
+
+          {/* Right — intro */}
+          <Reveal
+            delay={0.15}
+            className="order-3 md:order-3 md:max-w-[16rem] md:justify-self-end"
+          >
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {profile.intro}
+            </p>
+          </Reveal>
+        </div>
       </section>
 
-      <Divider />
+      <Divider className="my-8" />
 
-      {/* ───────────────────────── About ───────────────────────── */}
-      <section id="about" className="scroll-mt-24 py-12">
+      {/* ───────────────────────── Statement ───────────────────────── */}
+      <section id="stack" className="scroll-mt-24 py-8">
         <Reveal>
-          <SectionHeader index="01" label="About" title="A bit about me" />
+          <h2 className="max-w-4xl font-serif text-3xl font-semibold leading-[1.08] tracking-tight sm:text-5xl">
+            {headHead}
+            <span className="text-brand">many more{headTail}</span>
+          </h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="text-base leading-relaxed text-foreground/85">
-            {profile.bio}
+          <p className="mt-5 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {statement.description}
           </p>
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-6 space-y-2.5">
-          {achievements.map((a) => (
-            <div
-              key={a}
-              className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3"
-            >
-              <Trophy className="mt-0.5 size-4 shrink-0 text-brand" />
-              <p className="text-sm text-foreground/85">{a}</p>
+        {/* Auto-scrolling tech strip */}
+        <Reveal delay={0.15}>
+          <div className="marquee-mask mt-10 overflow-hidden">
+            <div className="flex w-max animate-marquee items-center gap-12">
+              {[...marqueeTools, ...marqueeTools].map(
+                ({ label, icon: Icon }, i) => (
+                  <div
+                    key={`${label}-${i}`}
+                    className="flex items-center gap-2.5 text-muted-foreground/45 transition-colors hover:text-foreground"
+                  >
+                    <Icon className="size-7" />
+                    <span className="text-sm font-medium">{label}</span>
+                  </div>
+                ),
+              )}
             </div>
-          ))}
+          </div>
         </Reveal>
       </section>
 
-      <Divider />
+      <Divider className="my-8" />
 
-      {/* ───────────────────────── Skills ───────────────────────── */}
-      <section id="skills" className="scroll-mt-24 py-12">
+      {/* ───────────────────────── What I do ───────────────────────── */}
+      <section id="work" className="scroll-mt-24 py-8">
         <Reveal>
-          <SectionHeader index="02" label="Skills" title="Tech I build with" />
+          <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
+            what I do
+          </h2>
         </Reveal>
-        <div className="space-y-5">
-          {skillGroups.map((group, i) => (
-            <Reveal key={group.label} delay={i * 0.05}>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
-                <span className="w-40 shrink-0 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                  {group.label}
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map(({ title, blurb, icon: Icon, href }, i) => (
+            <Reveal key={title} delay={i * 0.05}>
+              <a
+                href={href}
+                className="group flex items-center gap-4 rounded-2xl border border-border bg-card/70 p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand hover:bg-card"
+              >
+                <span className="flex size-16 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-brand/25 to-brand/5 text-brand ring-1 ring-inset ring-brand/20">
+                  <Icon className="size-7" />
                 </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-border bg-secondary/60 px-3 py-1 text-sm text-foreground/85 transition-colors hover:border-brand hover:text-brand"
-                    >
-                      {item}
-                    </span>
-                  ))}
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold uppercase leading-tight tracking-wide text-foreground">
+                    {title}
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">{blurb}</p>
                 </div>
-              </div>
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand text-brand-foreground transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                  <ArrowUpRight className="size-4" strokeWidth={2.5} />
+                </span>
+              </a>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <Divider />
+      <Divider className="my-8" />
 
       {/* ───────────────────────── Projects ───────────────────────── */}
-      <section id="projects" className="scroll-mt-24 py-12">
+      <section id="projects" className="scroll-mt-24 py-8">
         <Reveal>
-          <SectionHeader
-            index="03"
-            label="Projects"
-            title="Things I've shipped"
-          />
+          <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
+            selected projects
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+            A few production-grade things I've designed, built, and shipped
+            end&#8209;to&#8209;end.
+          </p>
         </Reveal>
-        <Reveal delay={0.1}>
-          <ProjectTimeline projects={projects} />
-        </Reveal>
-      </section>
 
-      <Divider />
-
-      {/* ───────────────────────── Blogs ───────────────────────── */}
-      <section id="blogs" className="scroll-mt-24 py-12">
-        <Reveal>
-          <SectionHeader index="04" label="Blogs" title="Writing & notes" />
-        </Reveal>
-        {blogPosts.length === 0 ? (
-          <Reveal delay={0.1}>
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-card/50 px-6 py-12 text-center">
-              <PenLine className="size-6 text-brand" />
-              <p className="mt-3 font-serif text-lg font-medium text-foreground">
-                Posts are on the way
-              </p>
-              <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-                I'm putting together write-ups on real-time systems, AI
-                workflows, and the things I learn while shipping. Check back
-                soon.
-              </p>
-            </div>
-          </Reveal>
-        ) : (
-          <div className="space-y-3">
-            {blogPosts.map((post, i) => (
-              <Reveal key={post.href} delay={i * 0.05}>
-                <a
-                  href={post.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-start justify-between gap-4 rounded-xl border border-border bg-card px-4 py-3 transition-colors hover:border-brand"
-                >
-                  <div>
-                    <p className="font-medium text-foreground">{post.title}</p>
-                    <p className="mt-0.5 text-sm text-muted-foreground">
-                      {post.description}
-                    </p>
-                  </div>
-                  <span className="shrink-0 pt-1 font-mono text-xs text-muted-foreground">
-                    {post.date}
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {projects.map((project, i) => (
+            <Reveal
+              key={project.name}
+              delay={i * 0.05}
+              className={project.featured ? "md:col-span-2" : undefined}
+            >
+              <article className="group flex h-full flex-col rounded-2xl border border-border bg-card/70 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground/40 hover:bg-card">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="font-serif text-xl font-semibold tracking-tight">
+                    {project.name}
+                  </h3>
+                  <span className="shrink-0 font-mono text-xs text-muted-foreground">
+                    {project.period}
                   </span>
-                </a>
-              </Reveal>
-            ))}
-          </div>
-        )}
+                </div>
+
+                {project.featured && (
+                  <span className="mt-2 inline-flex w-fit items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider text-foreground">
+                    Featured
+                  </span>
+                )}
+
+                <p className="mt-2 text-sm leading-relaxed text-foreground/85">
+                  {project.tagline}
+                </p>
+
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-border bg-secondary/60 px-2.5 py-0.5 text-xs text-muted-foreground"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                {project.links.length > 0 && (
+                  <div className="mt-4 flex flex-wrap gap-2 border-t border-border pt-4">
+                    {project.links.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 rounded-lg border border-border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+                      >
+                        {link.label}
+                        <ArrowUpRight className="size-3.5" />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
-      <Divider />
+      <Divider className="my-8" />
 
       {/* ───────────────────────── Contact ───────────────────────── */}
-      <section id="contact" className="scroll-mt-24 py-12">
+      <section id="contact" className="scroll-mt-24 py-8 text-center">
         <Reveal>
-          <SectionHeader index="05" label="Contact" title="Let's build something" />
+          <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
+            Contact me
+          </h2>
+          <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+            Have a role, a project, or just want to say hi? My inbox is open.
+          </p>
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
-            <p className="text-sm text-muted-foreground">
-              Have a role, a project, or just want to say hi? My inbox is open.
-            </p>
-
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-background px-4 py-2.5">
-                <span className="truncate font-mono text-sm text-foreground">
-                  {profile.email}
-                </span>
-                <CopyButton
-                  text={profile.email}
-                  size="icon-sm"
-                  className="shrink-0"
-                />
-              </div>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            {socials.map(({ label, href, icon: Icon }) => (
               <a
-                href={`mailto:${profile.email}`}
-                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground transition-transform duration-200 hover:scale-[1.02] active:scale-95"
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer"
+                aria-label={label}
+                className="group flex flex-col items-center gap-1.5"
               >
-                Send an email
-                <ArrowUpRight className="size-4" />
-              </a>
-            </div>
-
-            <div className="mt-5 flex flex-wrap gap-2 border-t border-border pt-5">
-              {socials.map(({ label, href, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-brand hover:text-brand"
-                >
-                  <Icon className="size-4" />
+                <span className="flex size-12 items-center justify-center rounded-2xl border border-border bg-card text-muted-foreground shadow-sm transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:border-brand group-hover:text-brand">
+                  <Icon className="size-5" />
+                </span>
+                <span className="text-[0.7rem] text-muted-foreground">
                   {label}
-                </a>
-              ))}
+                </span>
+              </a>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <div className="mx-auto mt-7 flex max-w-md flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <div className="flex w-full items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-2.5 sm:w-auto">
+              <span className="truncate font-mono text-sm text-foreground">
+                {profile.email}
+              </span>
+              <CopyButton
+                text={profile.email}
+                size="icon-sm"
+                className="shrink-0"
+              />
             </div>
+            <a
+              href={`mailto:${profile.email}`}
+              className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground transition-transform duration-200 hover:scale-[1.02] active:scale-95 sm:w-auto"
+            >
+              Send an email
+              <ArrowUpRight className="size-4" />
+            </a>
           </div>
         </Reveal>
       </section>
