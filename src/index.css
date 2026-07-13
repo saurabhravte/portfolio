@@ -2,68 +2,69 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/manrope";
-@import "@fontsource-variable/fraunces";
-@import "@fontsource/fuzzy-bubbles";
-
-@custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
-  --font-name: "Fuzzy Bubbles", ui-sans-serif, system-ui, cursive;
 }
 
-/* Editorial theme: grayscale base + warm orange accent (poster style) */
 :root {
   --radius: 0.75rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  /* Poster orange */
-  --brand: oklch(0.705 0.16 52);
-  --brand-foreground: oklch(0.145 0 0);
-  --grid-line: oklch(0.145 0 0 / 5%);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.145 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #060908;
+  --foreground: #ffffff;
+  
+  /* Brand Green */
+  --brand: #22c55e;
+  --brand-foreground: #000000;
+  
+  --card: #0b120f;
+  --card-foreground: #ffffff;
+  
+  --popover: #0b120f;
+  --popover-foreground: #ffffff;
+  
+  --primary: #22c55e;
+  --primary-foreground: #000000;
+  
+  --secondary: #111a16;
+  --secondary-foreground: #ffffff;
+  
+  --muted: #111a16;
+  --muted-foreground: #9ca3af;
+  
+  --accent: #111a16;
+  --accent-foreground: #ffffff;
+  
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.145 0 0);
+  
+  --border: #1f2d26;
+  --input: #1f2d26;
+  --ring: #22c55e;
 }
 
+/* Force dark mode */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --brand: oklch(0.72 0.165 55);
-  --brand-foreground: oklch(0.145 0 0);
-  --grid-line: oklch(1 0 0 / 6%);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --background: #060908;
+  --foreground: #ffffff;
+  --brand: #22c55e;
+  --brand-foreground: #000000;
+  --card: #0b120f;
+  --card-foreground: #ffffff;
+  --popover: #0b120f;
+  --popover-foreground: #ffffff;
+  --primary: #22c55e;
+  --primary-foreground: #000000;
+  --secondary: #111a16;
+  --secondary-foreground: #ffffff;
+  --muted: #111a16;
+  --muted-foreground: #9ca3af;
+  --accent: #111a16;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 18%);
-  --ring: oklch(0.985 0 0);
+  --border: #1f2d26;
+  --input: #1f2d26;
+  --ring: #22c55e;
 }
 
 @theme inline {
@@ -97,11 +98,12 @@
 @layer base {
   * {
     border-color: var(--border);
-    outline-color: color-mix(in oklch, var(--ring) 50%, transparent);
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
   }
 
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
   }
 
   body {
@@ -112,19 +114,8 @@
 }
 
 @layer utilities {
-  /* Faint engineering-grid paper, like the posters' backdrop */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 28px 28px;
-  }
-
-  /* Orange highlighter swatch behind inline words (poster headline style) */
-  .brand-highlight {
-    background-color: var(--brand);
-    color: var(--brand-foreground);
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
   }
 }
+

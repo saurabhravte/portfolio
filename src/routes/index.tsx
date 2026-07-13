@@ -1,253 +1,168 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, BadgeCheck, PenLine, Trophy } from "lucide-react";
-
-import { Divider, SectionHeader } from "@/components/frame";
-import { Portrait } from "@/components/portrait";
-import { Reveal } from "@/components/reveal";
-import { TextFlip } from "@/components/text-flip";
-import { ProjectTimeline } from "@/components/project-timeline";
-import { CopyButton } from "@/components/ui/copy-button";
-import {
-  achievements,
-  blogPosts,
-  profile,
-  projects,
-  skillGroups,
-  socials,
-} from "@/data/content";
+import { ChevronRight } from "lucide-react";
+import { FaBehance, FaPinterest, FaWhatsapp, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { SiGmail } from "react-icons/si";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const greetings = [
-  "Welcome to my corner of the web.",
-  "Hey there — glad you dropped by.",
-  "You found me. Come on in.",
-  "Great to have you here.",
-];
-
 function Index() {
-  const [greeting] = useState(
-    () => greetings[Math.floor(Math.random() * greetings.length)],
-  );
-
   return (
-    <div className="pb-20">
+    <div className="min-h-screen bg-[#060908] text-[#EAEAEA] font-sans pt-32 pb-20 px-6 sm:px-12 md:px-24">
       {/* ───────────────────────── Hero ───────────────────────── */}
-      <section className="py-10 sm:py-14">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
-          <Reveal>
-            <Portrait className="w-32 shrink-0 sm:w-40" />
-          </Reveal>
-
-          <Reveal delay={0.1} className="min-w-0">
-            <p className="font-name text-sm text-muted-foreground">
-              {greeting}
-            </p>
-            <h1 className="mt-1 flex items-center gap-2 font-name text-4xl font-bold leading-none tracking-tight sm:text-5xl">
-              {profile.name}
-              <BadgeCheck className="size-6 text-brand" />
-            </h1>
-            <p className="mt-2 text-base font-medium text-foreground">
-              <span className="brand-highlight rounded-[3px] px-1.5 py-0.5">
-                {profile.title}
-              </span>
-            </p>
-            <TextFlip
-              items={profile.roles}
-              className="mt-3 text-sm font-semibold text-muted-foreground"
+      <section className="relative w-full max-w-6xl mx-auto flex flex-col items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-3 w-full items-center gap-8 mb-8 z-10">
+          <div className="text-left">
+            <h2 className="text-xl md:text-2xl font-light text-[#EAEAEA]/80">
+              Graphic/Product<br />& Brand Designer
+            </h2>
+            <div className="w-12 h-[1px] bg-brand mt-4"></div>
+          </div>
+          
+          <div className="flex flex-col items-center justify-center relative w-full h-[400px] md:h-[500px]">
+            <img 
+              src="/src/assets/hero.png" 
+              alt="Avatar" 
+              className="absolute bottom-0 w-64 md:w-80 h-auto object-contain drop-shadow-2xl z-20"
+              onError={(e) => {
+                e.currentTarget.src = "https://github.com/shadcn.png";
+              }}
             />
-          </Reveal>
+            
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-full z-30 pointer-events-none mt-16">
+              <h3 className="text-brand tracking-[0.4em] text-sm md:text-base font-semibold uppercase mb-[-15px] md:mb-[-25px] ml-2">Rence</h3>
+              <h1 className="text-8xl md:text-[150px] font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#EAEAEA] to-[#444] drop-shadow-2xl" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>
+                IVANN
+              </h1>
+            </div>
+          </div>
+
+          <div className="text-left lg:text-right text-[#EAEAEA]/70 max-w-sm ml-auto text-sm md:text-base leading-relaxed">
+            Hi, I'm Ivan, a graphic designer, product designer, and brand illustrator passionate about crafting result driven designs and giving your products an interesting story and look
+          </div>
         </div>
 
-        <Reveal delay={0.15} className="mt-8 flex flex-wrap gap-2">
-          {socials.map(({ label, href, icon: Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
-              aria-label={label}
-              className="flex size-10 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground shadow-sm transition-all duration-300 ease-out hover:scale-110 hover:border-brand hover:text-brand active:scale-90"
-            >
-              <Icon className="size-4" />
-            </a>
-          ))}
-        </Reveal>
+        {/* Tools */}
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 mt-16 opacity-40 grayscale filter mix-blend-screen text-2xl">
+          <div className="flex items-center justify-center p-2 bg-[#333333]/20 rounded-md font-bold">
+            Ai
+          </div>
+          <div className="flex items-center justify-center p-2 bg-[#333333]/20 rounded-md font-bold">
+            Ps
+          </div>
+          <div className="flex items-center gap-2 font-bold tracking-tighter italic">
+            Canva
+          </div>
+          <div className="flex items-center gap-2 font-bold tracking-tighter">
+            asana
+          </div>
+          <div className="flex items-center gap-2 font-bold tracking-tighter">
+            Dropbox
+          </div>
+          <div className="flex items-center gap-2 font-bold tracking-tighter">
+            Airtable
+          </div>
+          <div className="flex items-center justify-center p-2 bg-[#333333]/20 rounded-md font-bold text-xl">
+            Ai+
+          </div>
+        </div>
       </section>
 
-      <Divider />
+      <div className="max-w-6xl mx-auto w-full h-[1px] bg-[#1f2d26] my-20"></div>
 
-      {/* ───────────────────────── About ───────────────────────── */}
-      <section id="about" className="scroll-mt-24 py-12">
-        <Reveal>
-          <SectionHeader index="01" label="About" title="A bit about me" />
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="text-base leading-relaxed text-foreground/85">
-            {profile.bio}
-          </p>
-        </Reveal>
+      {/* ───────────────────────── About / Intro ───────────────────────── */}
+      <section className="max-w-6xl mx-auto w-full">
+        <h2 className="text-3xl md:text-5xl font-medium mb-6 leading-tight max-w-4xl text-[#EAEAEA]">
+          Crafting incredible, impactful, satisfactory designs, brand identities and many more...
+        </h2>
+        <p className="text-[#EAEAEA]/60 text-sm md:text-base max-w-5xl leading-relaxed">
+          Design is not just about pictures, words, logo, color and typography, it is a way of telling a brand's story, communicating ideas, identifying real problems and providing solutions to those who needs it. Crafting and curating Memorable designs and branding is what I do very well...
+        </p>
 
-        <Reveal delay={0.15} className="mt-6 space-y-2.5">
-          {achievements.map((a) => (
-            <div
-              key={a}
-              className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3"
-            >
-              <Trophy className="mt-0.5 size-4 shrink-0 text-brand" />
-              <p className="text-sm text-foreground/85">{a}</p>
-            </div>
-          ))}
-        </Reveal>
-      </section>
-
-      <Divider />
-
-      {/* ───────────────────────── Skills ───────────────────────── */}
-      <section id="skills" className="scroll-mt-24 py-12">
-        <Reveal>
-          <SectionHeader index="02" label="Skills" title="Tech I build with" />
-        </Reveal>
-        <div className="space-y-5">
-          {skillGroups.map((group, i) => (
-            <Reveal key={group.label} delay={i * 0.05}>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
-                <span className="w-40 shrink-0 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                  {group.label}
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-border bg-secondary/60 px-3 py-1 text-sm text-foreground/85 transition-colors hover:border-brand hover:text-brand"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
+        {/* Partner Logos */}
+        <div className="flex flex-wrap gap-8 mt-12 opacity-20 grayscale">
+          {/* Mock partners, since they are very faint in image */}
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div key={i} className="h-8 w-24 bg-white/20 rounded-md"></div>
           ))}
         </div>
       </section>
 
-      <Divider />
+      <div className="max-w-6xl mx-auto w-full h-[1px] bg-[#1f2d26] mt-20 mb-12"></div>
 
-      {/* ───────────────────────── Projects ───────────────────────── */}
-      <section id="projects" className="scroll-mt-24 py-12">
-        <Reveal>
-          <SectionHeader
-            index="03"
-            label="Projects"
-            title="Things I've shipped"
-          />
-        </Reveal>
-        <Reveal delay={0.1}>
-          <ProjectTimeline projects={projects} />
-        </Reveal>
-      </section>
-
-      <Divider />
-
-      {/* ───────────────────────── Blogs ───────────────────────── */}
-      <section id="blogs" className="scroll-mt-24 py-12">
-        <Reveal>
-          <SectionHeader index="04" label="Blogs" title="Writing & notes" />
-        </Reveal>
-        {blogPosts.length === 0 ? (
-          <Reveal delay={0.1}>
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-card/50 px-6 py-12 text-center">
-              <PenLine className="size-6 text-brand" />
-              <p className="mt-3 font-serif text-lg font-medium text-foreground">
-                Posts are on the way
-              </p>
-              <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-                I'm putting together write-ups on real-time systems, AI
-                workflows, and the things I learn while shipping. Check back
-                soon.
-              </p>
-            </div>
-          </Reveal>
-        ) : (
-          <div className="space-y-3">
-            {blogPosts.map((post, i) => (
-              <Reveal key={post.href} delay={i * 0.05}>
-                <a
-                  href={post.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-start justify-between gap-4 rounded-xl border border-border bg-card px-4 py-3 transition-colors hover:border-brand"
-                >
-                  <div>
-                    <p className="font-medium text-foreground">{post.title}</p>
-                    <p className="mt-0.5 text-sm text-muted-foreground">
-                      {post.description}
-                    </p>
-                  </div>
-                  <span className="shrink-0 pt-1 font-mono text-xs text-muted-foreground">
-                    {post.date}
-                  </span>
-                </a>
-              </Reveal>
-            ))}
-          </div>
-        )}
-      </section>
-
-      <Divider />
-
-      {/* ───────────────────────── Contact ───────────────────────── */}
-      <section id="contact" className="scroll-mt-24 py-12">
-        <Reveal>
-          <SectionHeader index="05" label="Contact" title="Let's build something" />
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
-            <p className="text-sm text-muted-foreground">
-              Have a role, a project, or just want to say hi? My inbox is open.
-            </p>
-
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-background px-4 py-2.5">
-                <span className="truncate font-mono text-sm text-foreground">
-                  {profile.email}
-                </span>
-                <CopyButton
-                  text={profile.email}
-                  size="icon-sm"
-                  className="shrink-0"
-                />
+      {/* ───────────────────────── What I Do ───────────────────────── */}
+      <section className="max-w-6xl mx-auto w-full">
+        <h2 className="text-3xl md:text-4xl font-medium mb-8">what I do</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            "BRAND IDENTITY &\nLOGO DESIGN",
+            "SOCIAL MEDIA ADS/\nDESIGN",
+            "YOUTUBE\nTHUMBNAILS",
+            "MOVIE POSTERS/\nALBUM COVERS",
+            "SPORTS DESIGN",
+            "AI PROMPT FOR\nDESIGN AND OTHERS"
+          ].map((title, i) => (
+            <div key={i} className="group relative overflow-hidden rounded-2xl border border-[#1f2d26] bg-[#0b120f] h-28 sm:h-32 flex items-center p-6 transition-colors hover:border-brand cursor-pointer">
+              <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-transparent to-[#22c55e]/10"></div>
+              
+              {/* Fake image overlay */}
+              <div 
+                className="absolute left-0 top-0 bottom-0 w-2/5 bg-cover bg-center" 
+                style={{ 
+                  backgroundImage: 'url(/src/assets/hero.png)',
+                  maskImage: 'linear-gradient(to right, black, transparent)', 
+                  WebkitMaskImage: 'linear-gradient(to right, black, transparent)',
+                  opacity: 0.4
+                }}
+              ></div>
+              
+              <div className="relative z-10 flex-1 pl-[20%] sm:pl-[25%] pr-4">
+                <h3 className="text-xs sm:text-sm font-bold tracking-wider whitespace-pre-line text-[#EAEAEA]">
+                  {title}
+                </h3>
               </div>
-              <a
-                href={`mailto:${profile.email}`}
-                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground transition-transform duration-200 hover:scale-[1.02] active:scale-95"
-              >
-                Send an email
-                <ArrowUpRight className="size-4" />
-              </a>
+              
+              <div className="relative z-10 size-8 sm:size-10 shrink-0 rounded-full border border-brand/30 bg-[#060908] flex items-center justify-center text-brand transition-transform group-hover:scale-110">
+                <ChevronRight className="size-4 sm:size-5" />
+              </div>
             </div>
-
-            <div className="mt-5 flex flex-wrap gap-2 border-t border-border pt-5">
-              {socials.map(({ label, href, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-brand hover:text-brand"
-                >
-                  <Icon className="size-4" />
-                  {label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </Reveal>
+          ))}
+        </div>
       </section>
+
+      {/* ───────────────────────── Footer ───────────────────────── */}
+      <footer className="max-w-6xl mx-auto w-full mt-32 text-center pb-8">
+        <h2 className="text-2xl font-medium mb-8">Contact me</h2>
+        <div className="inline-flex flex-wrap items-center justify-center gap-6 rounded-full border border-[#1f2d26] bg-[#0b120f] px-8 py-4">
+          <a href="#" className="flex flex-col items-center gap-1 group">
+            <SiGmail className="size-6 text-red-500 transition-transform group-hover:-translate-y-1" />
+            <span className="text-[10px] text-[#EAEAEA]/50">Gmail</span>
+          </a>
+          <a href="#" className="flex flex-col items-center gap-1 group">
+            <FaInstagram className="size-6 text-pink-500 transition-transform group-hover:-translate-y-1" />
+            <span className="text-[10px] text-[#EAEAEA]/50">Instagram</span>
+          </a>
+          <a href="#" className="flex flex-col items-center gap-1 group">
+            <FaWhatsapp className="size-6 text-green-500 transition-transform group-hover:-translate-y-1" />
+            <span className="text-[10px] text-[#EAEAEA]/50">Whatsapp</span>
+          </a>
+          <a href="#" className="flex flex-col items-center gap-1 group">
+            <FaXTwitter className="size-6 text-[#EAEAEA] transition-transform group-hover:-translate-y-1" />
+            <span className="text-[10px] text-[#EAEAEA]/50">X/Twitter</span>
+          </a>
+          <a href="#" className="flex flex-col items-center gap-1 group">
+            <FaPinterest className="size-6 text-red-600 transition-transform group-hover:-translate-y-1" />
+            <span className="text-[10px] text-[#EAEAEA]/50">Pinterest</span>
+          </a>
+          <a href="#" className="flex flex-col items-center gap-1 group">
+            <FaBehance className="size-6 text-blue-600 transition-transform group-hover:-translate-y-1" />
+            <span className="text-[10px] text-[#EAEAEA]/50">Behance</span>
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }
