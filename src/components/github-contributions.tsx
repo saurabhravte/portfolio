@@ -20,11 +20,9 @@ import {
 
 export function GitHubContributions({
   contributions,
-  githubProfileUrl,
   className,
 }: {
   contributions: Promise<Activity[]>
-  githubProfileUrl: string
   className?: string
 }) {
   const data = use(contributions)

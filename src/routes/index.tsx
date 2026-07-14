@@ -251,10 +251,7 @@ function Index() {
         <Reveal delay={0.1}>
           <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card/70 p-4 sm:p-5">
             <Suspense fallback={<GitHubContributionsFallback />}>
-              <GitHubContributions
-                contributions={contributions}
-                githubProfileUrl={profile.githubUrl}
-              />
+              <GitHubContributions contributions={contributions} />
             </Suspense>
           </div>
         </Reveal>
