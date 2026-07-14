@@ -33,9 +33,7 @@ function Index() {
             <h1 className="font-serif text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
               {profile.title}
               <br />
-              <span className="text-muted-foreground">
-                &amp; {profile.subtitle}
-              </span>
+              <span className="text-muted-foreground">{profile.subtitle}</span>
             </h1>
             <TextFlip
               items={profile.roles}

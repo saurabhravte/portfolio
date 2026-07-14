@@ -36,8 +36,8 @@ export const profile = {
   // Large hero wordmark: small label sits above the oversized display name.
   displayNameTop: "Saurabh",
   displayNameBig: "ravte",
-  title: "Full Stack",
-  subtitle: "Web Developer",
+  title: "Full stack web developer",
+  subtitle: "and mobile developer",
   location: "India",
   email: "saurabh.ravte@gmail.com",
   phone: "+91 7987 191 418",
