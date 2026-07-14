@@ -60,18 +60,10 @@ export function GitHubContributions({
 
       <ContributionGraphFooter className="px-2">
         <ContributionGraphTotalCount>
-          {({ totalCount, year }) => (
+          {({ totalCount }) => (
             <div className="text-muted-foreground">
-              {totalCount.toLocaleString("en")} contributions in {year} on{" "}
-              <a
-                className="text-foreground link-underline"
-                href={githubProfileUrl}
-                target="_blank"
-                rel="noopener"
-              >
-                GitHub
-              </a>
-              .
+              {totalCount.toLocaleString("en")} contributions in the past 365
+              days.
             </div>
           )}
         </ContributionGraphTotalCount>
