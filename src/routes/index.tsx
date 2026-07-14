@@ -10,7 +10,9 @@ import {
 import { Reveal } from "@/components/reveal";
 import { TextFlip } from "@/components/text-flip";
 import { CopyButton } from "@/components/ui/copy-button";
+import { WorkExperience } from "@/components/work-experience";
 import { getCachedContributions } from "@/lib/get-cached-contributions";
+import { projectsToExperiences } from "@/lib/projects-to-experiences";
 import {
   marqueeTools,
   profile,
@@ -28,6 +30,7 @@ function Index() {
   // Split the statement so the closing phrase can be highlighted in green.
   const [headHead, headTail] = statement.headline.split("many more");
   const contributions = getCachedContributions(profile.githubUsername);
+  const projectExperiences = projectsToExperiences(projects);
 
   return (
     <div className="pb-24">
@@ -166,64 +169,14 @@ function Index() {
           </p>
         </Reveal>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {projects.map((project, i) => (
-            <Reveal
-              key={project.name}
-              delay={i * 0.05}
-              className={project.featured ? "md:col-span-2" : undefined}
-            >
-              <article className="group flex h-full flex-col rounded-2xl border border-border bg-card/70 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground/40 hover:bg-card">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-serif text-xl font-semibold tracking-tight">
-                    {project.name}
-                  </h3>
-                  <span className="shrink-0 font-mono text-xs text-muted-foreground">
-                    {project.period}
-                  </span>
-                </div>
-
-                {project.featured && (
-                  <span className="mt-2 inline-flex w-fit items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider text-foreground">
-                    Featured
-                  </span>
-                )}
-
-                <p className="mt-2 text-sm leading-relaxed text-foreground/85">
-                  {project.tagline}
-                </p>
-
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-border bg-secondary/60 px-2.5 py-0.5 text-xs text-muted-foreground"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {project.links.length > 0 && (
-                  <div className="mt-4 flex flex-wrap gap-2 border-t border-border pt-4">
-                    {project.links.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 rounded-lg border border-border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
-                      >
-                        {link.label}
-                        <ArrowUpRight className="size-3.5" />
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal delay={0.05}>
+          <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-card/70 px-2 sm:px-4">
+            <WorkExperience
+              className="px-0"
+              experiences={projectExperiences}
+            />
+          </div>
+        </Reveal>
       </section>
 
       <Divider className="my-8" />
