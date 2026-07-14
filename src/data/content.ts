@@ -41,6 +41,8 @@ export const profile = {
   location: "India",
   email: "saurabh.ravte@gmail.com",
   phone: "+91 7987 191 418",
+  githubUsername: "saurabhravte",
+  githubUrl: "https://github.com/saurabhravte",
   // Rotating one-liners for the hero flip text.
   roles: [
     "Building Scalable Full-Stack Apps",

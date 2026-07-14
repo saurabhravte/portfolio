@@ -1,10 +1,16 @@
+import { Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
 import { Divider } from "@/components/frame";
+import {
+  GitHubContributions,
+  GitHubContributionsFallback,
+} from "@/components/github-contributions";
 import { Reveal } from "@/components/reveal";
 import { TextFlip } from "@/components/text-flip";
 import { CopyButton } from "@/components/ui/copy-button";
+import { getCachedContributions } from "@/lib/get-cached-contributions";
 import {
   marqueeTools,
   profile,
@@ -21,6 +27,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   // Split the statement so the closing phrase can be highlighted in green.
   const [headHead, headTail] = statement.headline.split("many more");
+  const contributions = getCachedContributions(profile.githubUsername);
 
   return (
     <div className="pb-24">
@@ -217,6 +224,40 @@ function Index() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      <Divider className="my-8" />
+
+      {/* ───────────────────────── GitHub activity ───────────────────────── */}
+      <section id="github" className="scroll-mt-24 py-8">
+        <Reveal>
+          <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
+            GitHub activity
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+            A year of commits, PRs, and open-source work on{" "}
+            <a
+              href={profile.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-foreground link-underline"
+            >
+              GitHub
+            </a>
+            .
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card/70 p-4 sm:p-5">
+            <Suspense fallback={<GitHubContributionsFallback />}>
+              <GitHubContributions
+                contributions={contributions}
+                githubProfileUrl={profile.githubUrl}
+              />
+            </Suspense>
+          </div>
+        </Reveal>
       </section>
 
       <Divider className="my-8" />
